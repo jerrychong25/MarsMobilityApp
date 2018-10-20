@@ -2,6 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="my.com.codeplay.training.marsmobilityapp">
 
+    <uses-sdk
+        android:minSdkVersion="18"
+        android:targetSdkVersion="18" />
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -14,14 +27,26 @@
         android:theme="@style/AppTheme">
         <meta-data android:name="firebase_performance_logcat_enabled" android:value="true" />
 
-        <activity android:name="my.com.codeplay.training.marsmobilityapp.MainActivity"
-            android:screenOrientation="landscape">
+        <activity android:name=".Main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".DataActivity"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".Chat" >
+        </activity>
+        <activity
+            android:name=".Device"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+
+        <service
+            android:name=".RBLService"
+            android:enabled="true" />
     </application>
 
 </manifest>
