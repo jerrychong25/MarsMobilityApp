@@ -31,6 +31,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -48,6 +49,8 @@ public class DataActivity extends AppCompatActivity {
     private String mDeviceAddress;
     private RBLService mBluetoothLeService;
     private Map<UUID, BluetoothGattCharacteristic> map = new HashMap<UUID, BluetoothGattCharacteristic>();
+    private boolean hazard = false;
+    private Date lastHazardDate = null;
     String stringArray = "";
     String tempString2 = "";
 
@@ -157,10 +160,46 @@ public class DataActivity extends AppCompatActivity {
                                 Log.d("Data", data[6]+" Data "+data[7]);
                                 //stringArray.substring(2);
                                 //Log.d("Data", "BroadcastReceiver() T1 Final" + stringArray);
-                                tvHeartRate.setText(data[1]);
-                                tvHumidity.setText(data[3]);
-                                tvTemperature.setText(data[5]);
-                                tvHeatIndex.setText(data[7]);
+                                try
+                                {
+                                    float h = Float.parseFloat(data[1]);
+                                    if(h== -1)
+                                    {
+                                        tvHeartRate.setText("Measuring");
+                                    } else {
+                                        tvHeartRate.setText(data[1]);
+                                    }
+                                }
+                                catch(NumberFormatException fdsf)
+                                {
+
+                                }
+                                if(!hazard){
+                                    tvHumidity.setText(data[3]);
+                                    tvTemperature.setText(data[5]);
+                                    tvHeatIndex.setText(data[7]);
+                                    try
+                                    {
+                                        float d = Float.parseFloat(data[3]);
+                                        if(d>70 && d<=100)
+                                        {
+                                            hazard = true;
+                                            lastHazardDate = new Date();
+                                            //View root = this.getWindow().getDecorView();
+                                            //root.setBackgroundColor(0xFF448AFF);              // Format: α (FF) + Blue 50 A200 colour (448AFF) = FF448AFF
+                                        }
+                                    }
+                                    catch(NumberFormatException nfe)
+                                    {
+
+                                    }
+                                } else {
+                                    Date compareDateTime = new Date();
+                                    if((compareDateTime.getTime() / 1000) - (lastHazardDate.getTime() / 1000) > 3){
+                                        hazard = false;
+                                        lastHazardDate = null;
+                                    }
+                                }
                             }
                             stringArray = "";
                             if(tempString2 != "") {
@@ -173,20 +212,6 @@ public class DataActivity extends AppCompatActivity {
                     } else {
                         stringArray += tempString;
                     }
-                    /*else if(stringArray.indexOf(0)==parseInt("T"))
-                    {
-                        Log.d("Data", "BroadcastReceiver() T2");
-                        stringArray.substring(2);
-                        Log.d("Data", "BroadcastReceiver() T1 Final" + stringArray);
-                        tvTemperature.setText(stringArray);
-                    }
-                    else if(stringArray.charAt(0) == parseInt("T"))
-                    {
-                        Log.d("Data", "BroadcastReceiver() T3");
-                        stringArray.substring(2);
-                        Log.d("Data", "BroadcastReceiver() T1 Final" + stringArray);
-                        tvTemperature.setText(stringArray);
-                    }*/
                 }
             }
         }
