@@ -179,7 +179,7 @@ public class DataActivity extends AppCompatActivity {
                                             tvHeartRate.setText("Measuring");
                                         }
                                     } else {
-                                        tvHeartRate.setText(data[1]);
+                                        tvHeartRate.setText(data[1] + " BPM");
                                         if(lastHeartRateDate == null){
                                             lastHeartRateDate = new Date();
                                         }
@@ -190,9 +190,9 @@ public class DataActivity extends AppCompatActivity {
                                 {
                                 }
                                 if(!hazard){
-                                    tvHumidity.setText(data[3]+"%");
-                                    tvTemperature.setText(data[5]);
-                                    tvHeatIndex.setText(data[7]);
+                                    tvHumidity.setText(data[3] + " %");
+                                    tvTemperature.setText(data[5] + " °C");
+                                    tvHeatIndex.setText(data[7] + " °C");
                                     try
                                     {
                                         float d = Float.parseFloat(data[3]);
@@ -203,9 +203,6 @@ public class DataActivity extends AppCompatActivity {
 
                                             ConstraintLayout currentLayout = (ConstraintLayout) findViewById(R.id.main_layout);
                                             currentLayout.setBackgroundColor(Color.RED);
-
-                                            //View root = this.getWindow().getDecorView();
-                                            //root.setBackgroundColor(0xFF448AFF);              // Format: α (FF) + Blue 50 A200 colour (448AFF) = FF448AFF
 
                                             Toast.makeText(DataActivity.this,"HAZARD WEATHER!", Toast.LENGTH_LONG).show();
                                         }
@@ -269,49 +266,6 @@ public class DataActivity extends AppCompatActivity {
         mBluetoothLeService.close();
 
         System.exit(0);
-    }
-
-    private void parseResult (String result) {
-
-        if(result == null) {
-            Log.d("Data", "result is null!");
-        }
-
-        else if(result != null) {
-            Log.d("Data", "result not null!");
-
-            try {
-                final JSONObject weatherJSON = new JSONObject(result);
-
-//                tvHeartRate.setText(weatherJSON.getString("name") + "," + weatherJSON.getJSONObject("sys").getString("country"));
-//                Log.d("Data", "tvLocation: " + weatherJSON.getString("name") + "," + weatherJSON.getJSONObject("sys").getString("country"));
-
-                tvHeatIndex.setText(String.valueOf(weatherJSON.getJSONObject("wind").getDouble("speed")) + " mps");
-                Log.d("Data", "tvWindSpeed: " + String.valueOf(weatherJSON.getJSONObject("wind").getDouble("speed")) + " mps");
-
-                tvHeartRate.setText(String.valueOf(weatherJSON.getJSONObject("clouds").getInt("all")) + "%");
-                Log.d("Data", "tvCloudiness: " + String.valueOf(weatherJSON.getJSONObject("clouds").getInt("all")) + "%");
-
-                final JSONObject mainJSON = weatherJSON.getJSONObject("main");
-
-                tvTemperature.setText(String.valueOf(Math.round(mainJSON.getDouble("temp")-273)));
-                Log.d("Data", "tvTemperature: " + String.valueOf(mainJSON.getDouble("temp")));
-
-                tvHumidity.setText(String.valueOf(mainJSON.getInt("humidity")) + "%");
-                Log.d("Data", "tvHumidity: " + String.valueOf(mainJSON.getInt("humidity")) + "%");
-
-                final JSONArray weatherJSONArray = weatherJSON.getJSONArray("weather");
-                if(weatherJSONArray.length()>0) {
-                    int code = weatherJSONArray.getJSONObject(0).getInt("id");
-                    Log.d("Data", "code: " + String.valueOf(code));
-
-//                    getIcon(code);
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     private void getGattService(BluetoothGattService gattService) {

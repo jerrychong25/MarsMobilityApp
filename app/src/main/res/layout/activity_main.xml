@@ -10,13 +10,12 @@
 
     <TextView
         android:id="@+id/temperature"
-        android:layout_width="132dp"
+        android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_marginBottom="220dp"
         android:layout_marginStart="32dp"
         android:drawableLeft="@mipmap/ic_temperature"
         android:drawablePadding="10dp"
-        android:drawableRight="@mipmap/ic_celcius"
         android:textColor="#FFFFFF"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,7 +36,7 @@
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.350"
+        app:layout_constraintHorizontal_bias="0.300"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -48,7 +47,6 @@
         android:layout_marginEnd="8dp"
         android:drawableLeft="@mipmap/ic_wind"
         android:drawablePadding="10dp"
-        android:drawableRight="@mipmap/ic_celcius"
         android:textColor="#FFFFFF"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
