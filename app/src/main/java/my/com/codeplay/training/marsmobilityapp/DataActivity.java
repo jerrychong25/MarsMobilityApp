@@ -8,10 +8,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.IBinder;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +38,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.Delayed;
 import java.util.regex.Pattern;
 
 import retrofit2.Call;
@@ -51,6 +55,7 @@ public class DataActivity extends AppCompatActivity {
     private Map<UUID, BluetoothGattCharacteristic> map = new HashMap<UUID, BluetoothGattCharacteristic>();
     private boolean hazard = false;
     private Date lastHazardDate = null;
+    private Date lastHeartRateDate = null;
     String stringArray = "";
     String tempString2 = "";
 
@@ -165,17 +170,27 @@ public class DataActivity extends AppCompatActivity {
                                     float h = Float.parseFloat(data[1]);
                                     if(h== -1)
                                     {
-                                        tvHeartRate.setText("Measuring");
+                                        Date compareDateTime = new Date();
+                                        if(lastHeartRateDate!= null){
+                                            if((compareDateTime.getTime() / 1000) - (lastHeartRateDate.getTime() / 1000) > 2){
+                                                lastHeartRateDate = null;
+                                            }
+                                        } else {
+                                            tvHeartRate.setText("Measuring");
+                                        }
                                     } else {
                                         tvHeartRate.setText(data[1]);
+                                        if(lastHeartRateDate == null){
+                                            lastHeartRateDate = new Date();
+                                        }
+
                                     }
                                 }
                                 catch(NumberFormatException fdsf)
                                 {
-
                                 }
                                 if(!hazard){
-                                    tvHumidity.setText(data[3]);
+                                    tvHumidity.setText(data[3]+"%");
                                     tvTemperature.setText(data[5]);
                                     tvHeatIndex.setText(data[7]);
                                     try
@@ -185,8 +200,14 @@ public class DataActivity extends AppCompatActivity {
                                         {
                                             hazard = true;
                                             lastHazardDate = new Date();
+
+                                            ConstraintLayout currentLayout = (ConstraintLayout) findViewById(R.id.main_layout);
+                                            currentLayout.setBackgroundColor(Color.RED);
+
                                             //View root = this.getWindow().getDecorView();
                                             //root.setBackgroundColor(0xFF448AFF);              // Format: α (FF) + Blue 50 A200 colour (448AFF) = FF448AFF
+
+                                            Toast.makeText(DataActivity.this,"HAZARD WEATHER!", Toast.LENGTH_LONG).show();
                                         }
                                     }
                                     catch(NumberFormatException nfe)
@@ -195,9 +216,18 @@ public class DataActivity extends AppCompatActivity {
                                     }
                                 } else {
                                     Date compareDateTime = new Date();
-                                    if((compareDateTime.getTime() / 1000) - (lastHazardDate.getTime() / 1000) > 3){
+                                    if(lastHazardDate != null){
+                                        if((compareDateTime.getTime() / 1000) - (lastHazardDate.getTime() / 1000) > 5){
+                                            hazard = false;
+                                            lastHazardDate = null;
+                                            ConstraintLayout currentLayout = (ConstraintLayout) findViewById(R.id.main_layout);
+                                            currentLayout.setBackgroundColor(0xFF448AFF);
+                                        }
+                                    } else {
                                         hazard = false;
                                         lastHazardDate = null;
+                                        ConstraintLayout currentLayout = (ConstraintLayout) findViewById(R.id.main_layout);
+                                        currentLayout.setBackgroundColor(0xFF448AFF);
                                     }
                                 }
                             }
