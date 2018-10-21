@@ -7,7 +7,7 @@ apply plugin: 'com.google.firebase.firebase-perf'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "my.com.codeplay.training.weatherapp"
+        applicationId "my.com.codeplay.training.marsmobilityapp"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1

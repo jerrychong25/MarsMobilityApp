@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("my.com.codeplay.training.weatherapp", appContext.getPackageName());
+        assertEquals("my.com.codeplay.training.marsmobilityapp", appContext.getPackageName());
     }
 }

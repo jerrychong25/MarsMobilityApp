@@ -115,8 +115,6 @@ public class DataActivity extends AppCompatActivity {
                     .equals(action)) {
                 getGattService(mBluetoothLeService.getSupportedGattService());
             } else if (RBLService.ACTION_DATA_AVAILABLE.equals(action)) {
-//                displayData(intent.getByteArrayExtra(RBLService.EXTRA_DATA));
-
                 byte[] byteArray;
                 byteArray = intent.getByteArrayExtra(RBLService.EXTRA_DATA);
 
@@ -163,8 +161,7 @@ public class DataActivity extends AppCompatActivity {
 
                                 // Heat Index (I)
                                 Log.d("Data", data[6]+" Data "+data[7]);
-                                //stringArray.substring(2);
-                                //Log.d("Data", "BroadcastReceiver() T1 Final" + stringArray);
+
                                 try
                                 {
                                     float h = Float.parseFloat(data[1]);
