@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/temperature"
-        android:layout_width="89dp"
+        android:layout_width="132dp"
         android:layout_height="50dp"
         android:layout_marginBottom="220dp"
         android:layout_marginStart="32dp"
@@ -25,7 +25,7 @@
 
     <TextView
         android:id="@+id/humidity"
-        android:layout_width="89dp"
+        android:layout_width="132dp"
         android:layout_height="50dp"
         android:layout_marginBottom="220dp"
         android:layout_marginEnd="8dp"
@@ -41,7 +41,7 @@
 
     <TextView
         android:id="@+id/heatindex"
-        android:layout_width="80dp"
+        android:layout_width="132dp"
         android:layout_height="50dp"
         android:layout_marginBottom="220dp"
         android:layout_marginEnd="8dp"
@@ -51,7 +51,7 @@
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.968"
+        app:layout_constraintHorizontal_bias="0.928"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/humidity"
         app:layout_constraintVertical_bias="0.90" />
@@ -60,7 +60,7 @@
 
     <TextView
         android:id="@+id/heartrate"
-        android:layout_width="80dp"
+        android:layout_width="132dp"
         android:layout_height="50dp"
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="8dp"
@@ -70,7 +70,7 @@
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.968"
+        app:layout_constraintHorizontal_bias="0.928"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 

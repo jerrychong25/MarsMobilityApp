@@ -144,17 +144,23 @@ public class DataActivity extends AppCompatActivity {
                                 for( int j=0; j<data.length; j++ ) {
                                     Log.d("Data", data[j]);
                                 }
-                                //Log.d("Data", data[1]);
-                                //Log.d("Data", data[0]+" Data "+data[1]);
-                                //Log.d("Data", data[2]);
-                                //Log.d("Data", data[2]+" Data "+data[3]);
-                                //Log.d("Data", data[4]);
-                                //Log.d("Data", data[4]+" Data "+data[5]);
-                                //Log.d("Data", data[6]);
-                                //Log.d("Data", data[6]+" Data "+data[7]);
+                                // Heart Rate (B)
+                                Log.d("Data", data[0]+" Data "+data[1]);
+
+                                // Humidity (H)
+                                Log.d("Data", data[2]+" Data "+data[3]);
+
+                                // Temperature (T)
+                                Log.d("Data", data[4]+" Data "+data[5]);
+
+                                // Heat Index (I)
+                                Log.d("Data", data[6]+" Data "+data[7]);
                                 //stringArray.substring(2);
                                 //Log.d("Data", "BroadcastReceiver() T1 Final" + stringArray);
-                                 tvTemperature.setText(data[5]);
+                                tvHeartRate.setText(data[1]);
+                                tvHumidity.setText(data[3]);
+                                tvTemperature.setText(data[5]);
+                                tvHeatIndex.setText(data[7]);
                             }
                             stringArray = "";
                             if(tempString2 != "") {
