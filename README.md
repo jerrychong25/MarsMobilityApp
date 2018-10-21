@@ -34,7 +34,7 @@ Tested on Android 6.0 mobile phone.
 
 ## Authors
 
-**Jerry Chong** - [jerrychong25](https://github.com/jerrychong25)
+**Jerry Chong** - [jerrychong25](https://github.com/jerrychong25)<br>
 **Soh Lin Siong** - [sss2sssss](https://github.com/sss2sssss)
 
 ## License
